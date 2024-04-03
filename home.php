@@ -360,9 +360,9 @@ if ($result->num_rows > 0) {
             <img src="https://trendymagazine.net/wp-content/uploads/2021/03/Le-Mo%CC%88venpick-Hotel-Gammarth-Tunis-recoit-le-Green-Globe-Gold-Status-.jpg" class="card-img-top" alt="..." height="200px" width="200px">
             <div class="card-body d-flex flex-column justify-content-start align-items-start">
               <h5 class=""> <?php
-               $hotel['Name'] ?> </h5>
+              echo  $hotel['Name'] ?> </h5>
               <p style="color: royalblue;">Tunis-Hammamet</p>
-              <span class="badge text-bg-success"> <?php $hotel['bedding'] ?> </span>
+              <p> <?php echo $hotel['bedding'] ?> </p>
 
               <div class="d-flex flex-row justify-content-between align-items-center">
                 <h5>240 TND</h5>
@@ -396,6 +396,7 @@ if ($result->num_rows > 0) {
 
 <script>
   var bookbox = document.getElementById("guestdetailpanel");
+
 
   openbookbox = () => {
     bookbox.style.display = "flex";
