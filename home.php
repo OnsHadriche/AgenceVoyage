@@ -286,7 +286,7 @@ if ($result->num_rows > 0) {
             <div class="d-flex flex-row justify-content-between align-items-center">
 
               <h5>240 TND</h5>
-              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+              <button class="btn btn-primary bookbtn" onclick="handleDetails($id)">Voir Offre</button>
             </div>
           </div>
         </div>
@@ -367,7 +367,7 @@ if ($result->num_rows > 0) {
 
               <div class="d-flex flex-row justify-content-between align-items-center">
                 <h5>240 TND</h5>
-                <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+                <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
               </div>
             </div>
           </div>
@@ -397,7 +397,9 @@ if ($result->num_rows > 0) {
 
 <script>
   var bookbox = document.getElementById("guestdetailpanel");
-
+  const handleDetails = (id)=>{
+    window.location.href = `detailshotel.php?id=${id}`
+  }
 
   openbookbox = () => {
     bookbox.style.display = "flex";
