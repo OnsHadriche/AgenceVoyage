@@ -165,8 +165,9 @@ if ($result->num_rows > 0) {
               </div>
             </div>
           </div>
-          <div class="footer">
-            <button class="btn btn-success" name="guestdetailsubmit">Submit</button>
+          <div class="footer d-flex justify-content-center">
+            <button class="btn btn-success mx-3" name="guestdetailsubmit">Submit</button>
+            <button type="button" class="btn btn-danger" onclick="closebox()">Cancel</button>
           </div>
         </form>
 
@@ -360,7 +361,7 @@ if ($result->num_rows > 0) {
             <img src="https://trendymagazine.net/wp-content/uploads/2021/03/Le-Mo%CC%88venpick-Hotel-Gammarth-Tunis-recoit-le-Green-Globe-Gold-Status-.jpg" class="card-img-top" alt="..." height="200px" width="200px">
             <div class="card-body d-flex flex-column justify-content-start align-items-start">
               <h5 class=""> <?php
-              echo  $hotel['Name'] ?> </h5>
+                            echo  $hotel['Name'] ?> </h5>
               <p style="color: royalblue;">Tunis-Hammamet</p>
               <p> <?php echo $hotel['bedding'] ?> </p>
 
