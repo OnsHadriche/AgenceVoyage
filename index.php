@@ -116,6 +116,7 @@ session_start();
 
                         if ($result->num_rows > 0) {
                             $_SESSION['usermail']=$Email;
+                            $_SESSION['userName'] = $username;
                             $Email = "";
                             $Password = "";
                             header("Location: admin/admin.php");
