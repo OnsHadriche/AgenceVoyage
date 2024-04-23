@@ -67,8 +67,9 @@ if (isset($_GET['id'])) {
   <!-- sweet alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" href="./admin/css/roombook.css">
+  <link rel="stylesheet" href="./css/hotelDetails.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <!-- searchBar -->
+
   <!-- <link rel="stylesheet" href="./css/search.css"> -->
 
 </head>
@@ -80,19 +81,38 @@ if (isset($_GET['id'])) {
       <p>BLUEBIRD</p>
     </div>
     <ul class="d-flex d-flex justify-content-between">
-      <li class="me-2"><a href="#firstsection">Home</a></li>
-      <li class="me-2"><a href="#secondsection">Offers</a></li>
-      <li class="me-2"><a href="#contactus ">Contact</a></li>
+      <li class="me-2"><a href="./home.php">Home</a></li>
+      <li class="me-2"><a href="./home.php#secondsection">Offers</a></li>
+      <li class="me-2"><a href="./home.php#contactus ">Contact</a></li>
       <?php if ($username) : ?>
         <li class=" d-flex justify-content-evenly mt-2">
-          <p class="mx-3"> <?php echo $username ?></p>
-          <a href="./logout.php"><button class="btn btn-primary">LogOut</button></a>
+          <div class="dropdown ">
+            <a class="btn btn-secondary btn-sm  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+
+            <ul class="dropdown-menu " style="width: 250px;">
+              <li>
+                <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $username ?></p>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+
+                <a href="./logout.php" class="dropdown-item"><button class="btn btn-light d-flex align-items-center jutify-content-between"><i class="bi bi-box-arrow-in-right"></i> Log out</button></a>
+              </li>
+            </ul>
+          </div>
+
+
         </li>
       <?php else : ?>
-        <a href="./index.php"><button class="btn btn-danger">Login</button></a>
+        <a href="./index.php"><button class="btn btn-danger">LogIn</button></a>
       <?php endif; ?>
     </ul>
   </nav>s
+
   <div>
 
     <div id="guestdetailpanel">
@@ -180,6 +200,7 @@ if (isset($_GET['id'])) {
 
       <!-- ==== room book php ====-->
       <?php
+      $hotel = $row['Name'];
       if (isset($_POST['guestdetailsubmit'])) {
         $Name = $_POST['Name'];
         $Email = $_POST['Email'];
@@ -200,7 +221,7 @@ if (isset($_GET['id'])) {
                       </script>";
         } else {
           $sta = "NotConfirm";
-          $sql = "INSERT INTO roombook(Name,Email,Country,Phone,RoomType,Bed,NoofRoom,Meal,cin,cout,stat,nodays) VALUES ('$Name','$Email','$Country','$Phone','$RoomType','$Bed','$NoofRoom','$Meal','$cin','$cout','$sta',datediff('$cout','$cin'))";
+          $sql = "INSERT INTO roombook(Name,Email,Country,Phone,RoomType,Bed,NoofRoom,Meal,cin,cout,stat,nodays,hotel) VALUES ('$Name','$Email','$Country','$Phone','$RoomType','$Bed','$NoofRoom','$Meal','$cin','$cout','$sta',datediff('$cout','$cin'),'$hotel')";
           $result = mysqli_query($conn, $sql);
 
 
@@ -226,7 +247,7 @@ if (isset($_GET['id'])) {
   <section class="container " style=margin-top:150px>
     <div class="row mt-4">
       <div class="col-5">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="./image/hotel2.jpg" class="d-block w-100" alt="..." width="100px" height="300px">
@@ -251,25 +272,23 @@ if (isset($_GET['id'])) {
       <div class="col-7">
         <div class="card w-100 h-100 mb-3">
           <div class="card-body">
-            <div>
+            <div class="d-flex flex-column">
               <div class="d-flex ign-items-baseline justify-content-between">
                 <h4 class="card-title" style="color: #121481;"><?php echo $row['Name']; ?></h4>
                 <span><?php echo $row['Price']; ?> TND</span>
 
               </div>
-              <div>
-                <div class="rate">
-                  <input type="radio" id="star5" name="rate" value="5" />
-                  <label for="star5" title="text">5 stars</label>
-                  <input type="radio" id="star4" name="rate" value="4" />
-                  <label for="star4" title="text">4 stars</label>
-                  <input type="radio" id="star3" name="rate" value="3" />
-                  <label for="star3" title="text">3 stars</label>
-                  <input type="radio" id="star2" name="rate" value="2" />
-                  <label for="star2" title="text">2 stars</label>
-                  <input type="radio" id="star1" name="rate" value="1" />
-                  <label for="star1" title="text">1 star</label>
-                </div>
+              <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="text">1 star</label>
               </div>
 
             </div>
@@ -280,18 +299,7 @@ if (isset($_GET['id'])) {
               blanditiis animi, reprehenderit,
               libero voluptate error praesentium ab sed deserunt?
               Voluptatibus.
-            </p>
-            <div class="d-flex ">
-
-              <span class="d-flex  align-items-baseline justify-content-evenly mt-1 ms-2 me-3">
-                <i class="fa-solid fa-bed me-2" tyle="color: steelblue;"></i>
-                <h6> <?php echo $row['bedding']; ?></h6>
-              </span>
-              <span class="d-flex  align-items-baseline justify-content-evenly mb-2">
-                <i class="bi bi-house me-2 mb-1" style="color: steelblue;"></i>
-                <h6> <?php echo $row['type']; ?></h6>
-              </span>
-            </div>
+            <br/>
             <button type="button" class="btn btn-outline-primary float-end" onclick="openbookbox()">Book</button>
           </div>
         </div>
@@ -317,6 +325,8 @@ if (isset($_GET['id'])) {
   closebox = () => {
     bookbox.style.display = "none";
   }
+  let score = <?php echo $row["stars"]; ?>;
+  document.getElementById('star' + score).checked = true;
 </script>
 
 </html>

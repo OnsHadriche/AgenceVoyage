@@ -60,17 +60,38 @@ if ($result->num_rows > 0) {
       <img class="bluebirdlogo" src="./image/bluebirdlogo.png" alt="logo">
       <p>BLUEBIRD</p>
     </div>
-    <ul class="d-flex d-flex justify-content-between" >
+    <ul class="d-flex d-flex justify-content-between">
       <li class="me-2"><a href="#firstsection">Home</a></li>
       <li class="me-2"><a href="#secondsection">Offers</a></li>
       <li class="me-2"><a href="#contactus ">Contact</a></li>
       <?php if ($username) : ?>
         <li class=" d-flex justify-content-evenly mt-2">
-           <p class="mx-3"> <?php echo $username ?></p>
-           <a href="./logout.php"><button class="btn btn-primary">LogOut</button></a>
+          <div class="dropdown ">
+            <a class="btn btn-secondary btn-sm  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile
+            </a>
+
+            <ul class="dropdown-menu " style="width: 250px;">
+              <li>
+                <a href="./profile.php" class="dropdown-item">
+
+                  <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $username ?></p>
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+
+                <a href="./logout.php" class="dropdown-item"><button class="btn btn-light d-flex align-items-center jutify-content-between"><i class="bi bi-box-arrow-in-right"></i> Log out</button></a>
+              </li>
+            </ul>
+          </div>
+
+
         </li>
       <?php else : ?>
-        <a href="./index.php"><button class="btn btn-danger">Login</button></a>
+        <a href="./index.php"><button class="btn btn-danger">LogIn</button></a>
       <?php endif; ?>
     </ul>
   </nav>
@@ -115,10 +136,12 @@ if ($result->num_rows > 0) {
                   <div class="col-lg-2">
                     <h4>Sort Deals By:</h4>
                   </div>
-                  <div class="col-lg-4">
+
+                  <div class="col-lg-2">
                     <fieldset>
                       <select name="Location" class="form-select" aria-label="Default select example" id="chooseLocation" onChange="this.form.click()">
                         <option selected>Destinations</option>
+                        <option type="checkbox" name="option1" value="Italy">Tunisia</option>
                         <option type="checkbox" name="option1" value="Italy">Italy</option>
                         <option value="France">France</option>
                         <option value="Switzerland">Switzerland</option>
@@ -135,17 +158,17 @@ if ($result->num_rows > 0) {
                     <fieldset>
                       <select name="Price" class="form-select" aria-label="Default select example" id="choosePrice" onChange="this.form.click()">
                         <option selected>Price Range</option>
-                        <option value="100">$100 - $250</option>
-                        <option value="250">$250 - $500</option>
-                        <option value="500">$500 - $1,000</option>
-                        <option value="1000">$1,000 - $2,500</option>
-                        <option value="2500+">$2,500+</option>
+                        <option value="100">100 - 250 TND</option>
+                        <option value="250">250 - 500 TND</option>
+                        <option value="500">500 - 1,000 TND</option>
+                        <option value="1000">1,000 - 2,500 TND</option>
+                        <option value="2500+">2,500+</option>
                       </select>
                     </fieldset>
                   </div>
                   <div class="col-lg-2">
                     <fieldset>
-                      <button class="border-button">Search Results</button>
+                      <button class="border-button" type="submit">Search Results</button>
                     </fieldset>
                   </div>
                 </div>
@@ -164,6 +187,7 @@ if ($result->num_rows > 0) {
           <div class="card-body d-flex flex-column justify-content-start align-items-start">
             <h5 class="">MovenPick</h5>
             <p style="color: royalblue;">Tunis-Sousse</p>
+            <p>Single </p>
 
             <div class="d-flex flex-row justify-content-between align-items-center">
 
@@ -173,36 +197,7 @@ if ($result->num_rows > 0) {
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
-          <img src="https://imgcy.trivago.com/c_fill,d_dummy.jpeg,e_sharpen:60,f_auto,h_258,q_auto,w_258/hotelier-images/09/19/b67aac8a601df2a4849f044de23b8e5998e8c38d584d5125af6116cf5266.jpeg" class="card-img-top" alt="..." height="200px" width="200px">
-          <div class="card-body d-flex flex-column justify-content-start align-items-start">
-            <h5 class="">MovenPick</h5>
-            <p style="color: royalblue;">Tunis-Sousse</p>
 
-            <div class="d-flex flex-row justify-content-between align-items-center">
-
-              <h5>240 TND</h5>
-              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
-          <img src="https://www.resabo.com/cr.fwk/images/hotels/Hotel-2205-20200925-115108.jpg" class="card-img-top" alt="..." height="200px" width="200px">
-          <div class="card-body d-flex flex-column justify-content-start align-items-start">
-            <h5 class="">MovenPick</h5>
-            <p style="color: royalblue;">Tunis-Hammamet</p>
-
-            <div class="d-flex flex-row justify-content-between align-items-center">
-
-              <h5>240 TND</h5>
-              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="col">
 
         <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
@@ -210,28 +205,11 @@ if ($result->num_rows > 0) {
           <div class="card-body d-flex flex-column justify-content-start align-items-start">
             <h5 class="">ElMouradi</h5>
             <p style="color: royalblue;">Tunis-Hammamet</p>
-
+            <p>Single </p>
             <div class="d-flex flex-row justify-content-between align-items-center">
 
               <h5>120 TND</h5>
-              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-
-        <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
-          <img src="https://trendymagazine.net/wp-content/uploads/2021/03/Le-Mo%CC%88venpick-Hotel-Gammarth-Tunis-recoit-le-Green-Globe-Gold-Status-.jpg" class="card-img-top" alt="..." height="200px" width="200px">
-          <div class="card-body d-flex flex-column justify-content-start align-items-start">
-            <h5 class="">MovenPick</h5>
-            <p style="color: royalblue;">Tunis-Hammamet</p>
-
-            <div class="d-flex flex-row justify-content-between align-items-center">
-
-              <h5>240 TND</h5>
-              <button class="btn btn-primary bookbtn">Book</button>
+              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Voir offer</button>
             </div>
           </div>
         </div>
@@ -245,10 +223,9 @@ if ($result->num_rows > 0) {
               <h5 class=""> <?php
                             echo  $hotel['Name'] ?> </h5>
               <p style="color: royalblue;">Tunis-Hammamet</p>
-              <p> <?php echo $hotel['bedding'] ?> </p>
 
               <div class="d-flex flex-row justify-content-between align-items-center">
-                <h5>240 TND</h5>
+                <h5><?php echo $hotel['Price'] ?> TND</h5>
                 <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
               </div>
             </div>
@@ -276,8 +253,33 @@ if ($result->num_rows > 0) {
 
 <script>
   const handleDetails = (id) => {
-    window.location.href = `detailshotel.php?id=${id}`
-  }
+      window.location.href = `detailshotel.php?id=${id}`
+    } 
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const selectedLocation = document.getElementById('chooseLocation').value;
+      const selectedPrice = document.getElementById('choosePrice').value;
+
+      const hotels = document.querySelectorAll('.card'); 
+      hotels.forEach(hotel => {
+        const location = hotel.querySelector('.location').textContent.toLowerCase(); 
+        console.log(location)
+        const price = parseInt(hotel.querySelector('.price').textContent); 
+        console.log(price)
+
+        const locationMatch = selectedLocation === 'Destinations' || location.includes(selectedLocation.toLowerCase());
+        const priceMatch = selectedPrice === 'Price Range' || (selectedPrice === '2500+' && price >= 2500) || (price >= parseInt(selectedPrice.split('-')[0]) && price <= parseInt(selectedPrice.split('-')[1]));
+
+        if (locationMatch && priceMatch) {
+          hotel.style.display = 'block';
+        } else {
+          hotel.style.display = 'none';
+        }
+      });
+    });
+</script>
+
 </script>
 
 </html>
