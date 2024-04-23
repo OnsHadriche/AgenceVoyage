@@ -90,10 +90,11 @@ if (isset($_GET['id'])) {
             <a class="btn btn-secondary btn-sm  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Profile
             </a>
-
             <ul class="dropdown-menu " style="width: 250px;">
               <li>
-                <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $username ?></p>
+                <a href="./profile.php" class="dropdown-item">
+                  <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $usermail ?></p>
+                </a>
               </li>
               <li>
                 <hr class="dropdown-divider">
@@ -299,8 +300,8 @@ if (isset($_GET['id'])) {
               blanditiis animi, reprehenderit,
               libero voluptate error praesentium ab sed deserunt?
               Voluptatibus.
-            <br/>
-            <button type="button" class="btn btn-outline-primary float-end" onclick="openbookbox()">Book</button>
+              <br />
+              <button type="button" class="btn btn-outline-primary float-end" onclick="openbookbox()">Book</button>
           </div>
         </div>
       </div>

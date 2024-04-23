@@ -94,7 +94,10 @@ if ($username) {
 
                         <ul class="dropdown-menu " style="width: 250px;">
                             <li>
-                                <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $username ?></p>
+                                <a href="./profile.php" class="dropdown-item">
+
+                                    <h6 class="dropdown-item d-flex align-items-center" style="font-size: 12px;"> <i class="bi bi-person"></i><?php echo $username ?></p>
+                                </a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -178,7 +181,7 @@ if ($username) {
 
                                         </td>
                                         <td>
-                                        <a href="reservationDelete.php?id=<?php echo $reservation['id'] ?>"><button class='btn btn-danger'><i class="bi bi-trash3"></i></button></a>
+                                            <a href="reservationDelete.php?id=<?php echo $reservation['id'] ?>"><button class='btn btn-danger'><i class="bi bi-trash3"></i></button></a>
                                         </td>
                                     <?php endforeach; ?>
                                     </tr>
