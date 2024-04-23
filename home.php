@@ -51,6 +51,83 @@ if ($result->num_rows > 0) {
     #guestdetailpanel .middle {
       height: 450px;
     }
+
+    .input-box {
+      position: relative;
+      height: 76px;
+      max-width: 1000px;
+      width: 100%;
+      background: #fff;
+      margin: 0 50px;
+      border-radius: 8px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-box i,
+    .input-box .button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .input-box i {
+      left: 20px;
+      font-size: 30px;
+      color: #707070;
+      border-radius: 5px;
+    }
+
+    .input-box input {
+      height: 100%;
+      width: 100%;
+      outline: none;
+      font-size: 18px;
+      font-weight: 400;
+      border: none;
+      padding: 0 155px 0 65px;
+      background-color: #B3C8CF;
+      color: #102C57;
+
+    }
+
+    .input-box .button {
+      right: 20px;
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      background-color: #102C57;
+      cursor: pointer;
+    }
+
+    .input-box .button.clicked {
+      transform: translateY(-50%) scale(0.98);
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 500px) {
+      .input-box {
+        height: 66px;
+        margin: 0 50px;
+      }
+
+      .input-box i {
+        left: 12px;
+        font-size: 25px;
+      }
+
+      .input-box input {
+        padding: 0 112px 0 50px;
+      }
+
+      .input-box .button {
+        right: 12px;
+        font-size: 14px;
+        padding: 8px 18px;
+      }
+    }
   </style>
 </head>
 
@@ -126,56 +203,19 @@ if ($result->num_rows > 0) {
   <section id="secondsection">
     <img src="./image/homeanimatebg.svg">
     <div class="ourroom">
-      <h1 class="head">≼ Offers ≽</h1>
+      <h1 class="head">≼ Hotels ≽</h1>
       <section id="secondsection">
-        <div class="search-form">
-          <div class="row">
-            <div class="col-lg-12">
-              <form id="search-form" name="gs" method="submit" role="search" action="#">
-                <div class="row">
-                  <div class="col-lg-2">
-                    <h4>Sort Deals By:</h4>
-                  </div>
+        <div class="container">
+          <form method="GET" action="searchResult.php">
 
-                  <div class="col-lg-2">
-                    <fieldset>
-                      <select name="Location" class="form-select" aria-label="Default select example" id="chooseLocation" onChange="this.form.click()">
-                        <option selected>Destinations</option>
-                        <option type="checkbox" name="option1" value="Italy">Tunisia</option>
-                        <option type="checkbox" name="option1" value="Italy">Italy</option>
-                        <option value="France">France</option>
-                        <option value="Switzerland">Switzerland</option>
-                        <option value="Thailand">Thailand</option>
-                        <option value="Australia">Australia</option>
-                        <option value="India">India</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Malaysia">Malaysia</option>
-                        <option value="Singapore">Singapore</option>
-                      </select>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4">
-                    <fieldset>
-                      <select name="Price" class="form-select" aria-label="Default select example" id="choosePrice" onChange="this.form.click()">
-                        <option selected>Price Range</option>
-                        <option value="100">100 - 250 TND</option>
-                        <option value="250">250 - 500 TND</option>
-                        <option value="500">500 - 1,000 TND</option>
-                        <option value="1000">1,000 - 2,500 TND</option>
-                        <option value="2500+">2,500+</option>
-                      </select>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-2">
-                    <fieldset>
-                      <button class="border-button" type="submit">Search Results</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
+            <div class="input-box shadow">
+              <i class="uil uil-search"></i>
+              <input type="text"  id ="search" name ='search' placeholder="Search here..." />
+              <button class="button"  type="submit">Search</button>
             </div>
-          </div>
+          </form>
         </div>
+    </div>
     </div>
   </section>
 
@@ -252,34 +292,11 @@ if ($result->num_rows > 0) {
 </body>
 
 <script>
+  AOS.init();
   const handleDetails = (id) => {
-      window.location.href = `detailshotel.php?id=${id}`
-    } 
-    document.getElementById('search-form').addEventListener('submit', function(event) {
-      event.preventDefault(); 
-
-      const selectedLocation = document.getElementById('chooseLocation').value;
-      const selectedPrice = document.getElementById('choosePrice').value;
-
-      const hotels = document.querySelectorAll('.card'); 
-      hotels.forEach(hotel => {
-        const location = hotel.querySelector('.location').textContent.toLowerCase(); 
-        console.log(location)
-        const price = parseInt(hotel.querySelector('.price').textContent); 
-        console.log(price)
-
-        const locationMatch = selectedLocation === 'Destinations' || location.includes(selectedLocation.toLowerCase());
-        const priceMatch = selectedPrice === 'Price Range' || (selectedPrice === '2500+' && price >= 2500) || (price >= parseInt(selectedPrice.split('-')[0]) && price <= parseInt(selectedPrice.split('-')[1]));
-
-        if (locationMatch && priceMatch) {
-          hotel.style.display = 'block';
-        } else {
-          hotel.style.display = 'none';
-        }
-      });
-    });
+    window.location.href = `detailshotel.php?id=${id}`
+  }
 </script>
 
-</script>
 
 </html>

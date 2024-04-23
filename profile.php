@@ -82,9 +82,9 @@ if ($username) {
             <p>BLUEBIRD</p>
         </div>
         <ul class="d-flex d-flex justify-content-between">
-            <li class="me-2"><a href="#firstsection">Home</a></li>
-            <li class="me-2"><a href="#secondsection">Offers</a></li>
-            <li class="me-2"><a href="#contactus ">Contact</a></li>
+            <li class="me-2"><a href="./home.php">Home</a></li>
+            <li class="me-2"><a href="./home.php#secondsection">Offers</a></li>
+            <li class="me-2"><a href="./home.php#contactus ">Contact</a></li>
             <?php if ($username) : ?>
                 <li class=" d-flex justify-content-evenly mt-2">
                     <div class="dropdown ">
@@ -136,6 +136,7 @@ if ($username) {
                                     <th scope="col">Check out</th>
                                     <th scope="col">Number of days</th>
                                     <th scope="col">Type</th>
+                                    <th scope="col">Meal</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">State</th>
                                 </tr>
@@ -157,11 +158,15 @@ if ($username) {
 
                                         </td>
                                         <td>
-                                            <?php echo $reservation['nodays']; ?>
+                                            <?php echo $reservation['nodays']; ?> day(s)
 
                                         </td>
                                         <td>
                                             <?php echo $reservation['RoomType']; ?>
+
+                                        </td>
+                                        <td>
+                                            <?php echo $reservation['Meal']; ?>
 
                                         </td>
                                         <td>
@@ -173,8 +178,7 @@ if ($username) {
 
                                         </td>
                                         <td>
-                                        
-
+                                        <a href="reservationDelete.php?id=<?php echo $reservation['id'] ?>"><button class='btn btn-danger'><i class="bi bi-trash3"></i></button></a>
                                         </td>
                                     <?php endforeach; ?>
                                     </tr>
