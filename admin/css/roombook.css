@@ -82,11 +82,10 @@ i{
     justify-content: center;
     /* align-items: center; */
     background-color: #00000079;
-    bottom: 15%;
 }
 
 #guestdetailpanel .guestdetailpanelform{
-    height: 1300px;
+    height: 620px;
     width: 1170px;
     background-color: #ccdff4;
     border-radius: 10px;  
