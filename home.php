@@ -278,7 +278,6 @@ if ($result->num_rows > 0) {
 </body>
 
 <script>
-  AOS.init();
   const handleDetails = (id) => {
     window.location.href = `detailshotel.php?id=${id}`
   }
