@@ -221,11 +221,30 @@ if ($result->num_rows > 0) {
 
   <section class="container text-center">
     <div class="row gx-2 d-flex">
+
+
+      <div class="col">
+
+        <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
+          <img src="https://www.resabo.com/cr.fwk/images/hotels/Hotel-2205-20200925-115108.jpg" class="card-img-top" alt="..." height="200px" width="200px">
+          <div class="card-body d-flex flex-column justify-content-start align-items-start">
+            <h5 class="">ElMouradi</h5>
+            <p style="color: royalblue;">Tunis-Hammamet</p>
+            <p>Single </p>
+            <div class="d-flex flex-row justify-content-between align-items-center">
+
+              <h5>120 TND</h5>
+              <button class="btn btn-primary bookbtn" onclick="openbookbox()">Voir offer</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <?php
       foreach ($hotels as $hotel) : ?>
-        <div class="col-lg-4">
+        <div class="col">
           <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
-            <img src="<?php echo $hotel['Image']?>" class="card-img-top" alt="..." height="200px" width="200px">
+            <img src="<?php
+                            echo  $hotel['Image'] ?> " class="card-img-top" alt="..." height="200px" width="200px">
             <div class="card-body d-flex flex-column justify-content-start align-items-start">
               <h5 class=""> <?php
                             echo  $hotel['Name'] ?> </h5>
@@ -236,6 +255,7 @@ if ($result->num_rows > 0) {
                 <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
               </div>
             </div>
+          </div>
         </div>
       <?php endforeach; ?>
 
@@ -258,6 +278,7 @@ if ($result->num_rows > 0) {
 </body>
 
 <script>
+  AOS.init();
   const handleDetails = (id) => {
     window.location.href = `detailshotel.php?id=${id}`
   }
