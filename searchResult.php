@@ -70,8 +70,9 @@ if (isset($_GET['search'])) {
         </div>
         <ul class="d-flex d-flex justify-content-between">
             <li class="me-2"><a href="./home.php">Home</a></li>
-            <li class="me-2"><a href="./home.php#secondsection">Offers</a></li>
-            <li class="me-2"><a href="#contactus ">Contact</a></li>
+            <li class="me-2"><a href="./home.php#secondsection">Hotels</a></li>
+            <li class="me-2"><a href="./home.php#thirdsection">Offers</a></li>
+            <li class="me-2"><a href="./home.php#contactus ">Contact</a></li>
             <?php if ($username) : ?>
                 <li class=" d-flex justify-content-evenly mt-2">
                     <div class="dropdown ">
@@ -121,10 +122,19 @@ if (isset($_GET['search'])) {
                             <div class="card-body d-flex flex-column justify-content-start align-items-start">
                                 <h5 class=""> <?php
                                                 echo  $hotel['Name'] ?> </h5>
-                                <p style="color: royalblue;">Tunis-Hammamet</p>
+                                <p style="color: royalblue;"> <?php
+                                                                echo  $hotel['emplacement'] ?> </p>
 
                                 <div class="d-flex flex-row justify-content-between align-items-center">
-                                    <h5><?php echo $hotel['Price'] ?> TND</h5>
+                                    <?php if ($hotel['offer'] == 0) : ?>
+                                        <span><?php echo $hotel['Price']; ?> TND</span>
+                                    <?php else : ?>
+                                        <?php $promotion = $hotel['Price'] * (1 - ($hotel['offer'] / 100));
+                                        ?>
+                                        <span style="color: red;"><?php echo $promotion ?> TND :
+                                            <?php echo $hotel['offer'] ?><i class="bi bi-percent" style="color: red;"></i>
+                                        </span>
+                                    <?php endif; ?>
                                     <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
                                 </div>
                             </div>

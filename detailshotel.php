@@ -82,7 +82,8 @@ if (isset($_GET['id'])) {
     </div>
     <ul class="d-flex d-flex justify-content-between">
       <li class="me-2"><a href="./home.php">Home</a></li>
-      <li class="me-2"><a href="./home.php#secondsection">Offers</a></li>
+      <li class="me-2"><a href="./home.php#secondsection">Hotels</a></li>
+      <li class="me-2"><a href="./home.php#thirdsection">Offers</a></li>
       <li class="me-2"><a href="./home.php#contactus ">Contact</a></li>
       <?php if ($username) : ?>
         <li class=" d-flex justify-content-evenly mt-2">
