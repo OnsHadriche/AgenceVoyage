@@ -275,8 +275,21 @@ if (isset($_GET['id'])) {
           <div class="card-body">
             <div class="d-flex flex-column">
               <div class="d-flex ign-items-baseline justify-content-between">
-                <h4 class="card-title" style="color: #121481;"><?php echo $row['Name']; ?></h4>
-                <span><?php echo $row['Price']; ?> TND</span>
+                <h4 class="card-title" style="color: #121481;"><?php echo $row['Name']; ?>
+                  <br>
+                  <h4> <?php echo $row['emplacement']; ?></h4>
+
+                </h4>
+                <?php if ($row['offer'] == 0) : ?>
+                  <span><?php echo $row['Price']; ?> TND</span>
+                <?php else : ?>
+                  <?php $promotion = $row['Price'] * (1 - ($row['offer'] / 100));
+                  ?>
+                  <span style="color: red;"><?php echo $promotion ?> TND :
+                    <?php echo $row['offer'] ?><i class="bi bi-percent" style="color: red;"></i>
+                  </span>
+                <?php endif; ?>
+
 
               </div>
               <div class="rate">

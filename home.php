@@ -30,7 +30,6 @@ if ($result->num_rows > 0) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/home.css">
   <title>Hotel blue bird</title>
   <!-- boot -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -43,6 +42,7 @@ if ($result->num_rows > 0) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <!-- searchBar -->
   <link rel="stylesheet" href="./css/search.css">
+  <link rel="stylesheet" href="./css/home.css">
   <style>
     #guestdetailpanel {
       display: none;
@@ -128,6 +128,11 @@ if ($result->num_rows > 0) {
         padding: 8px 18px;
       }
     }
+
+    #thirdsection {
+      width: 100%;
+      /* background-color: black; */
+    }
   </style>
 </head>
 
@@ -139,7 +144,8 @@ if ($result->num_rows > 0) {
     </div>
     <ul class="d-flex d-flex justify-content-between">
       <li class="me-2"><a href="#firstsection">Home</a></li>
-      <li class="me-2"><a href="#secondsection">Offers</a></li>
+      <li class="me-2"><a href="#secondsection">Hotels</a></li>
+      <li class="me-2"><a href="#thirdsection">Offers</a></li>
       <li class="me-2"><a href="#contactus ">Contact</a></li>
       <?php if ($username) : ?>
         <li class=" d-flex justify-content-evenly mt-2">
@@ -199,7 +205,6 @@ if ($result->num_rows > 0) {
 
     </div>
   </section>
-
   <section id="secondsection">
     <img src="./image/homeanimatebg.svg">
     <div class="ourroom">
@@ -210,8 +215,8 @@ if ($result->num_rows > 0) {
 
             <div class="input-box shadow">
               <i class="uil uil-search"></i>
-              <input type="text"  id ="search" name ='search' placeholder="Search here..." />
-              <button class="button"  type="submit">Search</button>
+              <input type="text" id="search" name='search' placeholder="Search here..." />
+              <button class="button" type="submit">Search</button>
             </div>
           </form>
         </div>
@@ -241,31 +246,63 @@ if ($result->num_rows > 0) {
       </div>
       <?php
       foreach ($hotels as $hotel) : ?>
-        <div class="col">
-          <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
-            <img src="<?php
-                            echo  $hotel['Image'] ?> " class="card-img-top" alt="..." height="200px" width="200px">
-            <div class="card-body d-flex flex-column justify-content-start align-items-start">
-              <h5 class=""> <?php
-                            echo  $hotel['Name'] ?> </h5>
-              <p style="color: royalblue;">Tunis-Hammamet</p>
+        <?php if ($hotel['offer'] == 0) : ?>
+          <div class="col">
+            <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
+              <img src="<?php
+                        echo  $hotel['Image'] ?> " class="card-img-top" alt="..." height="200px" width="200px">
+              <div class="card-body d-flex flex-column justify-content-start align-items-start">
+                <h5 class=""> <?php
+                              echo  $hotel['Name'] ?> </h5>
+                <p style="color: royalblue;">Tunis-Hammamet</p>
 
-              <div class="d-flex flex-row justify-content-between align-items-center">
-                <h5><?php echo $hotel['Price'] ?> TND</h5>
-                <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                  <h5><?php echo $hotel['Price'] ?> TND</h5>
+
+
+                  <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <?php endif ?>
       <?php endforeach; ?>
-
-
-
-
     </div>
-
   </section>
-  <section id="contactus">
+  <section id="thirdsection">
+    <h1 class="head">≼ Offers ≽</h1>
+    <section class="container text-center ">
+      <div class="row gx-2 d-flex">
+
+        <?php
+        foreach ($hotels as $hotel) : ?>
+          <?php if ($hotel['offer'] != 0) : ?>
+            <div class="col">
+              <div class="card shadow-sm  mb-5 bg-body-tertiary rounded" style="width: 18rem;">
+                <img src="<?php
+                          echo  $hotel['Image'] ?> " class="card-img-top" alt="..." height="200px" width="200px">
+                <div class="card-body d-flex flex-column justify-content-start align-items-start">
+                  <h5 class=""> <?php echo  $hotel['Name'] ?> </h5>
+                  <p style="color: royalblue;">Tunis-Hammamet</p>
+
+                  <div class="d-flex flex-row justify-content-between align-items-center">
+                    <?php $promotion = $hotel['Price'] * (1 - ($hotel['offer'] / 100));
+                    ?>
+                    <h5><?php echo $promotion ?> TND</h5>
+
+
+                    <button class="btn btn-primary bookbtn" onclick="handleDetails(<?php echo $hotel['id'] ?>)">Voir Offre</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php endif ?>
+        <?php endforeach; ?>
+      </div>
+
+    </section>
+  </section>
+  <section id="contactus" class="mt-5">
     <div class="social">
       <i class="fa-brands fa-instagram"></i>
       <i class="fa-brands fa-facebook"></i>

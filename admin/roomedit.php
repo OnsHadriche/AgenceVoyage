@@ -105,7 +105,7 @@ if (isset($_POST['guestdetailedit'])) {
     $paymentresult = mysqli_query($conn,$psql);
 
     if ($paymentresult) {
-            header("Location:roombook.php");
+            header("Location:room.php");
     }
 
 }
