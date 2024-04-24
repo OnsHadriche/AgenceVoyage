@@ -98,7 +98,8 @@ include '../config.php';
                 </div>
             </div>
             <div class="footer">
-                <button class="btn btn-success" name="guestdetailsubmit">Submit</button>
+                <button class="btn btn-success m" name="guestdetailsubmit">Submit</button>
+               
             </div>
         </form>
 

@@ -5,15 +5,18 @@ include '../config.php';
 // fetch room data
 $id = $_GET['id'];
 
-$sql = "Select * from room where id = '$id'";
-$re = mysqli_query($conn, $sql);
-while ($row = mysqli_fetch_array($re)) {
+$sql ="Select * from room where id = '$id'";
+$re = mysqli_query($conn,$sql);
+while($row=mysqli_fetch_array($re))
+{
     $typeofname = $row['Name'];
-    $typeofprice = $row['Price'];
+    $typeofprice= $row['Price'];
     $typeofemplacement = $row['emplacement'];
     $typeofstars = $row['stars'];
     $typeofimage = $row['Image'];
     $typeofOffer = $row['offer'];
+   
+   
 }
 
 if (isset($_POST['guestdetailedit'])) {
@@ -23,17 +26,94 @@ if (isset($_POST['guestdetailedit'])) {
     $EditStars = $_POST['stars'];
     $EditImage = $_POST['Image'];
     $EditOffer = $_POST['offer'];
-
+   
     $sql = "UPDATE room SET Name = '$EditName',Price = '$EditPrice',Emplacement='$EditEmplacement',stars='$EditStars',Image='$EditImage', offer='$EditOffer' WHERE id = '$id'";
 
     $result = mysqli_query($conn, $sql);
+
+    $type_of_room = 0;
+    if($EditRoomType=="Superior Room")
+    {
+        $type_of_room = 3000;
+    }
+    else if($EditRoomType=="Deluxe Room")
+    {
+        $type_of_room = 2000;
+    }
+    else if($EditRoomType=="Guest House")
+    {
+        $type_of_room = 1500;
+    }
+    else if($EditRoomType=="Single Room")
+    {
+        $type_of_room = 1000;
+    }
+    
+    
+    if($EditBed=="Single")
+    {
+        $type_of_bed = $type_of_room * 1/100;
+    }
+    else if($EditBed=="Double")
+    {
+        $type_of_bed = $type_of_room * 2/100;
+    }
+    else if($EditBed=="Triple")
+    {
+        $type_of_bed = $type_of_room * 3/100;
+    }
+    else if($EditBed=="Quad")
+    {
+        $type_of_bed = $type_of_room * 4/100;
+    }
+    else if($EditBed=="None")
+    {
+        $type_of_bed = $type_of_room * 0/100;
+    }
+
+    if($EditMeal=="Room only")
+    {
+        $type_of_meal=$type_of_bed * 0;
+    }
+    else if($EditMeal=="Breakfast")
+    {
+        $type_of_meal=$type_of_bed * 2;
+    }
+    else if($EditMeal=="Half Board")
+    {
+        $type_of_meal=$type_of_bed * 3;
+    }
+    else if($EditMeal=="Full Board")
+    {
+        $type_of_meal=$type_of_bed * 4;
+    }
+    
+    // noofday update
+    $psql ="Select * from roombook where id = '$id'";
+    $presult = mysqli_query($conn,$psql);
+    $prow=mysqli_fetch_array($presult);
+    $Editnoofday = $prow['nodays'];
+
+    $editttot = $type_of_room*$Editnoofday * $EditNoofRoom;
+    $editmepr = $type_of_meal*$Editnoofday;
+    $editbtot = $type_of_bed*$Editnoofday;
+
+    $editfintot = $editttot + $editmepr + $editbtot;
+
+    $psql = "UPDATE payment SET Name = '$EditName',Email = '$EditEmail',RoomType='$EditRoomType',Bed='$EditBed',NoofRoom='$EditNoofRoom',Meal='$EditMeal',cin='$Editcin',cout='$Editcout',noofdays = '$Editnoofday',roomtotal = '$editttot',bedtotal = '$editbtot',mealtotal = '$editmepr',finaltotal = '$editfintot' WHERE id = '$id'";
+
+    $paymentresult = mysqli_query($conn,$psql);
+
+    if ($paymentresult) {
+            header("Location:room.php");
+    }
+
 }
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,8 +127,8 @@ if (isset($_POST['guestdetailedit'])) {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./css/roombook.css">
     <style>
-        #editpanel {
-            position: fixed;
+        #editpanel{
+            position : fixed;
             z-index: 1000;
             height: 100%;
             width: 100%;
@@ -57,21 +137,20 @@ if (isset($_POST['guestdetailedit'])) {
             /* align-items: center; */
             background-color: #00000079;
         }
-
-        #editpanel .guestdetailpanelform {
+        #editpanel .guestdetailpanelform{
             height: 620px;
             width: 1170px;
             background-color: #ccdff4;
-            border-radius: 10px;
+            border-radius: 10px;  
             /* temp */
             position: relative;
             top: 20px;
             animation: guestinfoform .3s ease;
         }
+
     </style>
     <title>Document</title>
 </head>
-
 <body>
     <div id="editpanel">
         <form method="POST" class="guestdetailpanelform">
@@ -83,8 +162,8 @@ if (isset($_POST['guestdetailedit'])) {
                 <div class="guestinfo">
                     <h4>Guest information</h4>
                     <input type="text" name="Name" placeholder="Enter Full name" value="<?php echo $typeofname ?>">
-                    <input type="number" name="Price" placeholder="Enter price" value="<?php echo $typeofprice ?>">
-                    <input type="text" name="stars" placeholder="Enter stars" value="<?php echo $typeofstars ?>">
+                    <input type="text" name="Price" placeholder="Enter price" value="<?php echo $typeofprice ?>">
+                    <input type="text" name="stars" placeholder="Enter number of stars" value="<?php echo $typeofstars ?>">
                     <input type="text" name="Image" placeholder="Enter image" value="<?php echo $typeofimage ?>">
                     <input type="text" name="offer" placeholder="Enter % " value="<?php echo $typeofOffer ?>">
 
@@ -93,23 +172,22 @@ if (isset($_POST['guestdetailedit'])) {
                     ?>
 
                     <select name="Emplacement" class="selectinput">
-                        <option value selected>Select your country</option>
+						<option value selected >Select your country</option>
                         <?php
-                        foreach ($Emplacement as $key => $value) :
-                            echo '<option value="' . $value . '">' . $value . '</option>';
-                        //close your tags!!
-                        endforeach;
-                        ?>
+							foreach($Emplacement as $key => $value):
+							echo '<option value="'.$value.'">'.$value.'</option>';
+                            //close your tags!!
+							endforeach;
+						?>
                     </select>
-
+                  
                 </div>
 
-                <div class="footer " style="margin-top: 13rem;">
-                    <button class="btn btn-success " name="guestdetailedit">Edit</button>
+                <div class="footer" >
+                <button class="btn btn-success" name="guestdetailedit">Edit</button>
                 </div>
-
+            
         </form>
     </div>
 </body>
-
 </html>

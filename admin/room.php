@@ -96,7 +96,8 @@ include '../config.php';
                 </div>
             </div>
             <div class="footer">
-                <button class="btn btn-success" name="guestdetailsubmit">Submit</button>
+                <button class="btn btn-success me-2" name="guestdetailsubmit">Submit</button>
+                <button type="button" class="btn btn-danger" onclick="closebox()">Cancel</button>
             </div>
         </form>
 
@@ -181,5 +182,11 @@ include '../config.php';
 
 </body>
 <script src="./javascript/roombook.js"></script>
+<script>
+    var bookbox = document.getElementById("guestdetailpanel");
+    closebox = () => {
+        bookbox.style.display = "none";
+    }
+</script>
 
 </html>
